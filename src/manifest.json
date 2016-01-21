@@ -5,10 +5,11 @@
   "manifest_version": 2,
   "app": {
     "background": {
-      "scripts": ["background.js"]
+      "scripts": ["background.js"],
+      "persistent": true
     }
   },
-  "icons": { "16": "icon.png" },
+  "icons": { "16": "icon.png", "128": "icon.png" },
   "permissions": [
     "webview"
   ],
