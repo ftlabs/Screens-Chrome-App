@@ -5,8 +5,12 @@
   "manifest_version": 2,
   "app": {
     "background": {
-      "scripts": ["scripts/background.js"]
+      "scripts": ["background.js"]
     }
   },
-  "icons": { "16": "icon-16.png", "128": "icon-128.png" }
+  "icons": { "16": "icon.png" },
+  "permissions": [
+    "webview"
+  ],
+  "kiosk_enabled" : true
 }

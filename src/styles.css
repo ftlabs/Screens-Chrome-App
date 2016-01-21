@@ -1,0 +1,17 @@
+html, body{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+
+webview {
+	height: 100%;
+	width: 100%;
+}
+
+button {
+	left: auto;
+	position: absolute;
+	right: 6px;
+}
