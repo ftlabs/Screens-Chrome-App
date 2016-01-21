@@ -1,6 +1,6 @@
 'use strict';
 
-/*global window, document*/
+/*global window*/
 
 window.onload = function() {
 
