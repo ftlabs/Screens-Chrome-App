@@ -1,5 +1,5 @@
 {
-  "name": "ftlabs-chrome-screens-app",
+  "name": "ftlabs-chrome-screens-app-kiosk",
   "description": "A kiosk-enabled Chrome app that ties into the FT Labs Screens system.",
   "scripts": {
     "build-js": "mkdir -p build/scripts; rm -f build/scripts/*; find ./src/scripts -maxdepth 1 -name '*.js' -execdir browserify {} -t [ babelify  --sourceMapRelative . --presets [es2015] ] -o ../../build/scripts/{} ';'",
