@@ -2,7 +2,7 @@
   "name": "ftlabs-chrome-screens-app",
   "description": "A kiosk-enabled Chrome app that ties into the FT Labs Screens system.",
   "scripts": {
-    "build-js": "mkdir -p build/scripts; rm -f build/scripts/*; find ./src/scripts -maxdepth 1 -name '*.js' -execdir browserify {} -t [ babelify  --sourceMapRelative . --presets [es2015] ] -o ../../build/scripts/{} ';'",
+    "build-js": "mkdir -p build/scripts && obt build --js=src/scripts/main.js --buildFolder=build/scripts",
     "watch": "npm run build && sh -c 'nodemon -e js --watch src/scripts/ --exec \"npm run deploy\" & wait'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build-js",
@@ -15,7 +15,12 @@
     "babel-preset-es2015": "^6.3.13",
     "babelify": "^7.2.0",
     "browserify": "^12.0.1",
+    "gulp": "^3.9.1",
     "nodemon": "^1.8.1",
+    "origami-build-tools": "^5.0.0",
     "whatwg-fetch": "^0.10.1"
+  },
+  "dependencies": {
+    "ftlabs-screens-viewer": "^2.1.3"
   }
 }
