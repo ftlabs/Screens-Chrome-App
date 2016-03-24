@@ -33,8 +33,7 @@ window.onload = function() {
 	
 	const Viewer = require('ftlabs-screens-viewer');
 	const viewer = new Viewer('http://ftlabs-screens.herokuapp.com', chromeStorage);
-	viewer.start();
-	
+		
 	viewer.on('change', e => {
 		console.log('change', e);
 		view.src = e;
@@ -60,5 +59,7 @@ window.onload = function() {
 	viewer.on('id-change', function () {
 		updateIDs();
 	});
-
+	
+	viewer.start();
+	
 }
