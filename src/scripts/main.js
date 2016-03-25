@@ -23,17 +23,17 @@ const chromeStorage = {
 
 const view = document.querySelector('webview');
 
-function updateIDs() {
-	[].slice.call(document.querySelectorAll('.screen-id')).forEach(function(el) {
-		el.innerHTML = view.getData('id');
-	});
-}
-
 window.onload = function() {
 	
 	const Viewer = require('ftlabs-screens-viewer');
 	const viewer = new Viewer('http://ftlabs-screens.herokuapp.com', chromeStorage);
 		
+	function updateIDs() {
+		[].slice.call(document.querySelectorAll('.screen-id')).forEach(function(el) {
+			el.innerHTML = viewer.getData('id');
+		});
+	}	
+	
 	viewer.on('change', e => {
 		console.log('change', e);
 		view.src = e;
