@@ -21,13 +21,13 @@ const chromeStorage = {
 	}
 };
 
+const view = document.querySelector('webview');
+
 function updateIDs() {
 	[].slice.call(document.querySelectorAll('.screen-id')).forEach(function(el) {
-		el.innerHTML = viewer.getData('id');
+		el.innerHTML = view.getData('id');
 	});
 }
-
-const view = document.querySelector('webview');
 
 window.onload = function() {
 	
