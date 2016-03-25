@@ -28,6 +28,7 @@ function updateIDs() {
 }
 
 const view = document.querySelector('webview');
+const eddystone = require('eddystone-advertising-library');
 
 window.onload = function() {
 	
