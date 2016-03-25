@@ -21,12 +21,6 @@ const chromeStorage = {
 	}
 };
 
-function updateIDs() {
-	[].slice.call(document.querySelectorAll('.screen-id')).forEach(function(el) {
-		el.innerHTML = viewer.getData('id');
-	});
-}
-
 const view = document.querySelector('webview');
 const beacon = window.eddystone;
 
@@ -35,6 +29,12 @@ window.onload = function() {
 	const Viewer = require('ftlabs-screens-viewer');
 	const viewer = new Viewer('http://ftlabs-screens.herokuapp.com', chromeStorage);
 		
+	function updateIDs() {
+		[].slice.call(document.querySelectorAll('.screen-id')).forEach(function(el) {
+			el.innerHTML = viewer.getData('id');
+		});
+	}	
+	
 	viewer.on('change', e => {
 		console.log('change', e);
 		view.src = e;
