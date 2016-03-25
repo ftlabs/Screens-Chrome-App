@@ -23,9 +23,40 @@ const chromeStorage = {
 
 const view = document.querySelector('webview');
 const beacon = window.eddystone;
+let registered_adv;
+
+function registerBeacon(url){
+	
+	if(beacon.advertisements.length > 0){
+		
+		const registeredAdvertisments = beacon.advertisements.map(advertisement => {
+			return advertisement.unregisterAdvertisement()
+				.then(() => console.log('Unregistered successfully'))
+				.catch(error => console.log('Couldn\'t unregister the advertisement: ' + error.message))
+			;
+		});
+		Promise.all(registeredAdvertisments)
+			.then(url => {
+				registerBeacon(url);
+			});
+		;
+	} else {
+		
+		beacon.registerAdvertisement({
+			type: 'url',
+			url: url,
+			advertisedTxPower: -20
+		}).then(advertisement => {
+			registered_adv = advertisement;
+			console.log('Advertising: ' + advertisement.url)
+		}).catch(error => console.log(error.message));
+			
+	}
+
+}
 
 window.onload = function() {
-	
+
 	const Viewer = require('ftlabs-screens-viewer');
 	const viewer = new Viewer('http://ftlabs-screens.herokuapp.com', chromeStorage);
 		
@@ -56,22 +87,17 @@ window.onload = function() {
 		console.log("Viewer ready");
 		view.src = e;
 		
-		let registered_adv;
-		beacon.registerAdvertisement({
-			type: 'url',
-			url: 'https://ft.com',
-			advertisedTxPower: -20
-		}).then(advertisement => {
-			registered_adv = advertisement;
-			console.log('Advertising: ' + advertisement.url)
-		}).catch(error => console.log(error.message));
+		console.log(viewer.host + "/" + viewer.data.id);
+		
+		registerBeacon(viewer.host + "/" + viewer.data.id);
 		
 	});
 	
 	viewer.on('id-change', function () {
 		updateIDs();
+		registerBeacon(viewer.host + "/" + viewer.data.id);
 	});
 	
 	viewer.start();
-	
+
 }
