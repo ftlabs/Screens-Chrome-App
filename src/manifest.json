@@ -1,7 +1,7 @@
 {
   "name": "FT Labs Screens (Kiosk)",
   "description": "A kiosk-enabled Chrome app that ties into the FT Labs Screens system.",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "manifest_version": 2,
   "app": {
     "background": {
@@ -11,7 +11,9 @@
   },
   "icons": { "16": "icon.png", "128": "icon.png" },
   "permissions": [
-    "webview"
+    "webview",
+	"storage",
+	"power"
   ],
   "kiosk_enabled" : true
 }

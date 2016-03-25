@@ -3,6 +3,7 @@ html, body{
 	padding: 0;
 	width: 100%;
 	height: 100%;
+	background-color: #fff1e0;
 }
 
 webview {
@@ -14,4 +15,25 @@ button {
 	left: auto;
 	position: absolute;
 	right: 6px;
+}
+
+.network-issue #disconnected{
+	display: block;
+}
+
+#disconnected {
+	background-color: #fff1e0;
+	max-width: 300px;
+	bottom: 20px;
+	right: 20px;
+	width: 30%;
+	padding: 20px;
+	font-size: 80%;
+	box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.2);
+	position: fixed;
+	display: none;
+}
+
+#panel-disconnected p {
+	margin: 0.8em 0;
 }

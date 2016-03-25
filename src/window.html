@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <title>FT Labs Screens</title>
+<head>
+<meta charset='utf-8'>
+<title>FT Labs Screens</title>
+<script src="scripts/socket.io-1.3.7.min.js"></script>
+<link rel="stylesheet" type="text/css" href="styles.css">
 
-    <link rel="stylesheet" type="text/css" href="styles.css">
-  </head>
+</head>
 
-  <body>
+<body class="">
 
-    <webview src="http://ftlabs-screens.herokuapp.com/viewer" partition="persist:screens"></webview>
+	<webview minwidth="1024" minheight="768"></webview>
 
-  	<script src="scripts/main.js"></script>
-  
-  </body>
+	<div id="disconnected">
+		<p><strong>Screen <span class='screen-id'></span></strong></p>
+		<p>This screen is having trouble connecting to the network. Content may not be up to date.</p>
+	</div>
+
+	<script src="scripts/main.js"></script>
+	
+</body>
 </html>
