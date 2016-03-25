@@ -15,3 +15,5 @@ chrome.app.runtime.onLaunched.addListener(function(e) {
 		}
 	);
 });
+
+chrome.power.requestKeepAwake("display");
