@@ -28,7 +28,7 @@ function updateIDs() {
 }
 
 const view = document.querySelector('webview');
-const eddystone = require('eddystone-advertising-library');
+const beacon = window.eddystone;
 
 window.onload = function() {
 	
@@ -55,6 +55,17 @@ window.onload = function() {
 	viewer.on('ready', e => {
 		console.log("Viewer ready");
 		view.src = e;
+		
+		let registered_adv;
+		beacon.registerAdvertisement({
+			type: 'url',
+			url: 'https://ft.com',
+			advertisedTxPower: -20
+		}).then(advertisement => {
+			registered_adv = advertisement;
+			console.log('Advertising: ' + advertisement.url)
+		}).catch(error => console.log(error.message));
+		
 	});
 	
 	viewer.on('id-change', function () {

@@ -1,5 +1,5 @@
 {
-  "name": "FT Labs Screens (Kiosk)",
+  "name": "FT Labs Screens (PhysWeb Kiosk)",
   "description": "A kiosk-enabled Chrome app that ties into the FT Labs Screens system.",
   "version": "1.0.0",
   "manifest_version": 2,
@@ -15,5 +15,9 @@
 	"storage",
 	"power"
   ],
-  "kiosk_enabled" : true
+  "kiosk_enabled" : true,
+  "bluetooth": {
+	  "low_energy" : true,
+	  "peripheral" : true
+  }
 }
