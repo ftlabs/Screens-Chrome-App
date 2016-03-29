@@ -21,13 +21,61 @@ const chromeStorage = {
 	}
 };
 
+const bringDown = (function(){
+	
+	const bootTime = new Date();
+	const targetHour = 24;
+	let restartTime;
+	let bringDownSet = false;
+		
+	function setTimeUntilBD(){
+		
+		if(bringDownSet){
+			console.warn("The bring down has already been set. You cannot reset it. This system will restart in %d seconds", restartTime);
+			return;
+		}
+		
+		const hoursUntilTarget = ((targetHour - bootTime.getHours()) * 60 * 60) * 1000;
+		const minutesFromNextHour = ((60 - bootTime.getMinutes()) * 60) * 1000;
+		
+		const millisecondsUntilEarliestPossibleRestart = hoursUntilTarget - minutesFromNextHour;
+		const giveALittle = (60 * 60 * 1000) * Math.random() | 0;
+		
+		const restartIn = millisecondsUntilEarliestPossibleRestart + giveALittle;
+		
+		setTimeout(function(){
+			
+			chrome.runtime.restart();
+					
+		}, restartIn);
+		
+		bringDownSet = true;
+		restartTime = Date.now() + restartIn;
+		
+		return restartTime;
+		
+	}
+	
+	function getTimeUntilBD(){
+		
+		return restartTime;
+		
+	}
+	
+	return {
+		set : setTimeUntilBD,
+		get : getTimeUntilBD
+	};
+	
+})();
+
 const view = document.querySelector('webview');
 
 window.onload = function() {
 	
 	const Viewer = require('ftlabs-screens-viewer');
 	const viewer = new Viewer('http://ftlabs-screens.herokuapp.com', chromeStorage);
-		
+	
 	function updateIDs() {
 		[].slice.call(document.querySelectorAll('.screen-id')).forEach(function(el) {
 			el.innerHTML = viewer.getData('id');
@@ -61,5 +109,7 @@ window.onload = function() {
 	});
 	
 	viewer.start();
+	
+	bringDown.set();
 	
 }
