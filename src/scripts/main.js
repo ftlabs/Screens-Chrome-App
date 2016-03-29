@@ -24,15 +24,21 @@ const chromeStorage = {
 const bringDown = (function(){
 	
 	const bootTime = new Date();
-	const targetHour = 24;
+	let targetHour = 24;	
 	let restartTime;
 	let bringDownSet = false;
-		
+	
 	function setTimeUntilBD(){
 		
 		if(bringDownSet){
-			console.warn("The bring down has already been set. You cannot reset it. This system will restart in %d seconds", restartTime);
+			console.warn("The bring-down has already been set. You cannot reset it. This system will restart in %d seconds", restartTime);
 			return;
+		}
+		
+		// If the targetHour has already passed in the day, the next opportunity is the next day
+		// So, here, figure out how long we have to wait until the same time tomorrow.
+		if(targetHour < bootTime.getHours()){
+			targetHour = 24 - (bootTime.getHours() - targetHour);
 		}
 		
 		const hoursUntilTarget = ((targetHour - bootTime.getHours()) * 60 * 60) * 1000;
@@ -52,6 +58,7 @@ const bringDown = (function(){
 		bringDownSet = true;
 		restartTime = Date.now() + restartIn;
 		
+		// The unix time that the Chrome OS device will be restarted at. 
 		return restartTime;
 		
 	}
