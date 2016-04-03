@@ -6,9 +6,23 @@ html, body{
 	background-color: #fff1e0;
 }
 
+webview.buffering {
+	transform: translateX(100%);
+}
+webview.active {
+	transition: transform 0.5s ease;
+	transform: translateX(0);
+}
+webview.done {
+	transition: transform 0.5s ease;
+	transform: translateX(-100%);
+}
 webview {
-	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
 	width: 100%;
+	height: 100%;
 }
 
 button {
