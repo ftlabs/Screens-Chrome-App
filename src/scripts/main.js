@@ -2,7 +2,6 @@
 
 /*global window, chrome, document*/
 
-
 const chromeStorage = {
 	setItem : function(storageKey, data, callback){
 		const storageObj = {};
@@ -137,6 +136,8 @@ window.onload = function() {
 
 	const Viewer = require('ftlabs-screens-viewer');
 	const Carousel = require('ftlabs-screens-carousel');
+	const carouselCountdown = document.querySelector('#carousel-countdown');
+
 	let carousel;
 	const viewer = new Viewer('http://ftlabs-screens.herokuapp.com', chromeStorage);
 
@@ -153,11 +154,24 @@ window.onload = function() {
 			// stop timers
 			carousel.destroy();
 			carousel = null;
+			carouselCountdown.style.transform = 'scaleX(0)';
+			carouselCountdown.style.transition = 'none';
+			carouselCountdown.style.offsetHeight;
 		}
 
 		if (Carousel.isCarousel(url)) {
 			carousel = new Carousel(url, 'http://ftlabs-screens.herokuapp.com');
-			carousel.on('change', updateUrl);
+			carousel.on('change', function (url) {
+				updateUrl(url);
+				carouselCountdown.style.transition = 'none';
+				carouselCountdown.style.transform = 'scaleX(1)';
+
+				setTimeout(() => {
+					let duration = carousel.timeUntilNext();
+					carouselCountdown.style.transition = `transform ${duration}ms linear`;
+					carouselCountdown.style.transform = 'scaleX(0)';
+				}, 100);
+			});
 			updateUrl(carousel.getCurrentURL());
 		} else {
 			updateUrl(url);

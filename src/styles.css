@@ -51,3 +51,13 @@ button {
 #panel-disconnected p {
 	margin: 0.8em 0;
 }
+
+#carousel-countdown {
+	position: fixed;
+	bottom: 0;
+	height: 0.5em;
+	background: #9e2f50;
+	width: 100vw;
+	transform-origin: 0 0;
+	transform: scaleX(0);
+}
