@@ -166,7 +166,7 @@ window.onload = function() {
 			carousel = new Carousel(url, 'http://ftlabs-screens.herokuapp.com');
 			carousel.on('change', function (url) {
 				updateUrl(url);
-				
+
 				window.addEventListener('visible', function(){
 					carouselCountdown.style.transition = 'none';
 					carouselCountdown.style.transform = 'scaleX(1)';
@@ -175,11 +175,11 @@ window.onload = function() {
 						carouselCountdown.style.transition = `transform ${duration}ms linear`;
 						carouselCountdown.style.transform = 'scaleX(0)';	
 					}, 50);
-					
+
 				}, false);
 
 			});
-			
+
 			updateUrl(carousel.getCurrentURL());
 		} else {
 			updateUrl(url);
