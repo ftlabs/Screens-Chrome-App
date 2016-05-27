@@ -2,6 +2,8 @@
 
 /*global window, chrome, document*/
 
+const visibleEvt = new Event('visible');
+
 const chromeStorage = {
 	setItem : function(storageKey, data, callback){
 		const storageObj = {};
@@ -84,6 +86,7 @@ function webViewLoaded() {
 	this.classList.remove('buffering');
 	this.classList.add('active');
 	this.removeEventListener('load', webViewLoaded);
+	window.dispatchEvent(visibleEvt);
 }
 
 function kickOutIframe(webView) {
@@ -163,15 +166,20 @@ window.onload = function() {
 			carousel = new Carousel(url, 'http://ftlabs-screens.herokuapp.com');
 			carousel.on('change', function (url) {
 				updateUrl(url);
-				carouselCountdown.style.transition = 'none';
-				carouselCountdown.style.transform = 'scaleX(1)';
+				
+				window.addEventListener('visible', function(){
+					carouselCountdown.style.transition = 'none';
+					carouselCountdown.style.transform = 'scaleX(1)';
+					setTimeout(function(){
+						let duration = carousel.timeUntilNext();
+						carouselCountdown.style.transition = `transform ${duration}ms linear`;
+						carouselCountdown.style.transform = 'scaleX(0)';	
+					}, 50);
+					
+				}, false);
 
-				setTimeout(() => {
-					let duration = carousel.timeUntilNext();
-					carouselCountdown.style.transition = `transform ${duration}ms linear`;
-					carouselCountdown.style.transform = 'scaleX(0)';
-				}, 100);
 			});
+			
 			updateUrl(carousel.getCurrentURL());
 		} else {
 			updateUrl(url);
@@ -200,7 +208,6 @@ window.onload = function() {
 	});
 
 	viewer.start();
-
 	bringDown.set();
 
 };

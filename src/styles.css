@@ -60,4 +60,5 @@ button {
 	width: 100vw;
 	transform-origin: 0 0;
 	transform: scaleX(0);
+	will-change: transform;
 }
