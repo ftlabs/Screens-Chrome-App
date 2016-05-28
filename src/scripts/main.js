@@ -2,7 +2,7 @@
 
 /*global window, chrome, document*/
 
-const visibleEvt = new Event('visible');
+const visibleEvt = new Event('carousel-content-visible');
 
 const chromeStorage = {
 	setItem : function(storageKey, data, callback){
@@ -150,34 +150,37 @@ window.onload = function() {
 		});
 	}
 
+	function onCarouselVisibleShowCountdown () {
+		carouselCountdown.style.transition = 'none';
+		carouselCountdown.style.transform = 'scaleX(1)';
+		setTimeout(function(){
+			let duration = carousel.timeUntilNext();
+			carouselCountdown.style.transition = `transform ${duration}ms linear`;
+			carouselCountdown.style.transform = 'scaleX(0)';
+		}, 50);
+	}
+
 	viewer.on('change', url => {
 		console.log('change', url);
 
+		// Reset carousel countdown
+		window.removeEventListener('carousel-content-visible', onCarouselVisibleShowCountdown);
+		carouselCountdown.style.transform = 'scaleX(0)';
+		carouselCountdown.style.transition = 'none';
+		carouselCountdown.style.offsetHeight;
+
 		if (carousel) {
+
 			// stop timers
 			carousel.destroy();
 			carousel = null;
-			carouselCountdown.style.transform = 'scaleX(0)';
-			carouselCountdown.style.transition = 'none';
-			carouselCountdown.style.offsetHeight;
 		}
 
 		if (Carousel.isCarousel(url)) {
 			carousel = new Carousel(url, 'http://ftlabs-screens.herokuapp.com');
 			carousel.on('change', function (url) {
 				updateUrl(url);
-
-				window.addEventListener('visible', function(){
-					carouselCountdown.style.transition = 'none';
-					carouselCountdown.style.transform = 'scaleX(1)';
-					setTimeout(function(){
-						let duration = carousel.timeUntilNext();
-						carouselCountdown.style.transition = `transform ${duration}ms linear`;
-						carouselCountdown.style.transform = 'scaleX(0)';	
-					}, 50);
-
-				}, false);
-
+				window.addEventListener('carousel-content-visible', onCarouselVisibleShowCountdown, false);
 			});
 
 			updateUrl(carousel.getCurrentURL());
