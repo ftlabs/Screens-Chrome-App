@@ -18,9 +18,8 @@
     "gulp": "^3.9.1",
     "nodemon": "^1.8.1",
     "origami-build-tools": "^5.0.0",
-    "whatwg-fetch": "^0.10.1"
-  },
-  "dependencies": {
+    "whatwg-fetch": "^0.10.1",
+    "ftlabs-screens-carousel": "^1.0.10",
     "ftlabs-screens-viewer": "^3.0.0"
   }
 }
