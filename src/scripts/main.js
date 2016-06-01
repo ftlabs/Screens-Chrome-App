@@ -83,17 +83,15 @@ const views = [].slice.call(document.querySelectorAll('webview'));
 function webViewLoaded() {
 	const currentActive = document.querySelector('webView.active');
 	if (currentActive) kickOutIframe(currentActive);
-	this.classList.remove('buffering');
-	this.classList.add('active');
+	this.setAttribute('class', 'active');
 	this.removeEventListener('load', webViewLoaded);
 	window.dispatchEvent(visibleEvt);
 }
 
 function kickOutIframe(webView) {
-	webView.classList.remove('active');
-	webView.classList.remove('buffering');
-	webView.classList.add('done');
-	setTimeout(() => webView.src = 'about:blank', 500);
+	
+	webView.setAttribute('class', 'done');
+	
 	webView.removeEventListener('contentload', webViewLoaded);
 
 	// remove self from the list
@@ -102,10 +100,10 @@ function kickOutIframe(webView) {
 
 function prepareIframetoLoad(webView, url) {
 	usedViews.push(webView);
-	webView.classList.add('buffering');
-	webView.classList.remove('done');
-	webView.src = url;
+	webView.setAttribute('class', 'buffering');
+
 	webView.addEventListener('contentload', webViewLoaded);
+	webView.src = url;
 }
 
 const usedViews = [];
