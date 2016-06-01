@@ -163,8 +163,8 @@ window.onload = function() {
 
 		// Reset carousel countdown
 		window.removeEventListener('carousel-content-visible', onCarouselVisibleShowCountdown);
-		carouselCountdown.style.transform = 'scaleX(0)';
 		carouselCountdown.style.transition = 'none';
+		carouselCountdown.style.transform = 'scaleX(0)';
 		carouselCountdown.style.offsetHeight;
 
 		if (carousel) {
