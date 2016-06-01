@@ -209,6 +209,7 @@ window.onload = function() {
 	});
 
 	viewer.start();
-	bringDown.set();
 
 };
+
+	bringDown.set();
