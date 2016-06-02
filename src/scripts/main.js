@@ -140,7 +140,7 @@ window.onload = function() {
 	const carouselCountdown = document.querySelector('#carousel-countdown');
 
 	let carousel;
-	const viewer = new Viewer('http://ftlabs-screens.herokuapp.com', chromeStorage);
+	const viewer = new Viewer('/* @echo host */', chromeStorage);		
 
 	function updateIDs() {
 		[].slice.call(document.querySelectorAll('.screen-id')).forEach(function(el) {
@@ -175,7 +175,7 @@ window.onload = function() {
 		}
 
 		if (Carousel.isCarousel(url)) {
-			carousel = new Carousel(url, 'http://ftlabs-screens.herokuapp.com');
+			carousel = new Carousel(url, '/* @echo host */');
 			carousel.on('change', function (url) {
 				updateUrl(url);
 				window.addEventListener('carousel-content-visible', onCarouselVisibleShowCountdown, false);
