@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build-js",
     "deploy": "npm run clean && cp -R ./src ./build && npm run build && zip -r ./build/package.zip ./build",
-    "clean": "rm -rf ./build && rm -rf ./process"
+    "clean": "rm -rf ./build && rm -rf ./process",
+    "deploy-test": "npm run clean && cp -R ./src ./build && npm run build-test && zip -r ./build/package.zip ./build",
+    "build-test": "npm run build-js-test",
+    "build-js-test": "mkdir -p build/scripts && mkdir -p ./process/scripts && gulp process --deploy=test && obt build --js=process/scripts/main.js --buildFolder=build/scripts"
   },
   "author": "FTLabs",
   "license": "MIT",

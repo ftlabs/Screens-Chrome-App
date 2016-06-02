@@ -5,8 +5,6 @@ const argv = require('yargs').argv;
 gulp.task('process', function() {
 	
 	var host = 'http://ftlabs-screens.herokuapp.com';
-	
-	console.log(argv.deploy);
 
 	if(argv.deploy === 'test'){
 		host = 'http://ftlabs-screens-test.herokuapp.com';	
@@ -21,10 +19,11 @@ gulp.task('process', function() {
 	;
 	
 	gulp.src(['./src/manifest.json'])
-		.pipe( process({
-			host
+		.pipe( process( { context : {
+				test : "-TEST"
+			}
 		}) )
-		.pipe( gulp.dest('./process/') )
+		.pipe( gulp.dest('./process') )
 	;
 	
 });
