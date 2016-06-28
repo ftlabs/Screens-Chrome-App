@@ -10,20 +10,12 @@ gulp.task('process', function() {
 		host = 'http://ftlabs-screens-test.herokuapp.com';	
 	}
 	
-	gulp.src(['./src/scripts/main.js'])
+	gulp.src('./src/scripts/main.js')
 		.pipe( process( { context : {
 				host : host
 			}
 		}) )
 		.pipe( gulp.dest('./process/scripts/') )
-	;
-	
-	gulp.src(['./src/manifest.json'])
-		.pipe( process( { context : {
-				test : "-TEST"
-			}
-		}) )
-		.pipe( gulp.dest('./process') )
 	;
 	
 });
