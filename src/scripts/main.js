@@ -83,29 +83,27 @@ const views = [].slice.call(document.querySelectorAll('webview'));
 function webViewLoaded() {
 	const currentActive = document.querySelector('webView.active');
 	if (currentActive) kickOutIframe(currentActive);
-	this.classList.remove('buffering');
-	this.classList.add('active');
+	this.setAttribute('class', 'active');
 	this.removeEventListener('load', webViewLoaded);
 	window.dispatchEvent(visibleEvt);
 }
 
 function kickOutIframe(webView) {
-	webView.classList.remove('active');
-	webView.classList.remove('buffering');
-	webView.classList.add('done');
-	setTimeout(() => webView.src = 'about:blank', 500);
+	
+	webView.setAttribute('class', 'done');
+	
 	webView.removeEventListener('contentload', webViewLoaded);
-
+	setTimeout(() => webView.src = 'about:blank', 500);
 	// remove self from the list
 	usedViews.splice(usedViews.indexOf(webView), 1);
 }
 
 function prepareIframetoLoad(webView, url) {
 	usedViews.push(webView);
-	webView.classList.add('buffering');
-	webView.classList.remove('done');
-	webView.src = url;
+	webView.setAttribute('class', 'buffering');
+
 	webView.addEventListener('contentload', webViewLoaded);
+	webView.src = url;
 }
 
 const usedViews = [];
@@ -142,7 +140,7 @@ window.onload = function() {
 	const carouselCountdown = document.querySelector('#carousel-countdown');
 
 	let carousel;
-	const viewer = new Viewer('http://ftlabs-screens.herokuapp.com', chromeStorage);
+	const viewer = new Viewer('/* @echo host */', chromeStorage);
 
 	function updateIDs() {
 		[].slice.call(document.querySelectorAll('.screen-id')).forEach(function(el) {
@@ -165,8 +163,8 @@ window.onload = function() {
 
 		// Reset carousel countdown
 		window.removeEventListener('carousel-content-visible', onCarouselVisibleShowCountdown);
-		carouselCountdown.style.transform = 'scaleX(0)';
 		carouselCountdown.style.transition = 'none';
+		carouselCountdown.style.transform = 'scaleX(0)';
 		carouselCountdown.style.offsetHeight;
 
 		if (carousel) {
@@ -177,7 +175,7 @@ window.onload = function() {
 		}
 
 		if (Carousel.isCarousel(url)) {
-			carousel = new Carousel(url, 'http://ftlabs-screens.herokuapp.com');
+			carousel = new Carousel(url, '/* @echo host */');
 			carousel.on('change', function (url) {
 				updateUrl(url);
 				window.addEventListener('carousel-content-visible', onCarouselVisibleShowCountdown, false);
@@ -211,6 +209,7 @@ window.onload = function() {
 	});
 
 	viewer.start();
-	bringDown.set();
 
 };
+
+	bringDown.set();

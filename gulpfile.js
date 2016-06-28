@@ -1,15 +1,23 @@
 const gulp = require('gulp');
-const obt = require('origami-build-tools');
+const process = require('gulp-preprocess');
+const argv = require('yargs').argv;
 
-gulp.task('build', function() {
+gulp.task('process', function() {
 	
-	return obt.build.js({
-		js: './src/scripts/main.js',
-		buildJs: 'main.js',
-		buildFolder: './build/scripts/',
-		sourcemaps : false
-	});
+	var host = 'http://ftlabs-screens.herokuapp.com';
 
+	if(argv.deploy === 'test'){
+		host = 'http://ftlabs-screens-test.herokuapp.com';	
+	}
+	
+	gulp.src('./src/scripts/main.js')
+		.pipe( process( { context : {
+				host : host
+			}
+		}) )
+		.pipe( gulp.dest('./process/scripts/') )
+	;
+	
 });
 
-gulp.task('default', ['build']);
+gulp.task('default', ['process']);
