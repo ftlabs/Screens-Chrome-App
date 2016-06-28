@@ -140,7 +140,7 @@ window.onload = function() {
 	const carouselCountdown = document.querySelector('#carousel-countdown');
 
 	let carousel;
-	const viewer = new Viewer('/* @echo host */', chromeStorage);		
+	const viewer = new Viewer('/* @echo host */', chromeStorage);
 
 	function updateIDs() {
 		[].slice.call(document.querySelectorAll('.screen-id')).forEach(function(el) {
