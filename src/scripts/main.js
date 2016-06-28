@@ -93,7 +93,7 @@ function kickOutIframe(webView) {
 	webView.setAttribute('class', 'done');
 	
 	webView.removeEventListener('contentload', webViewLoaded);
-
+	setTimeout(() => webView.src = 'about:blank', 500);
 	// remove self from the list
 	usedViews.splice(usedViews.indexOf(webView), 1);
 }
