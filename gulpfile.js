@@ -6,7 +6,7 @@ gulp.task('process', function() {
 	
 	var host = 'http://ftlabs-screens.herokuapp.com';
 
-	if(argv.deploy === 'test'){
+	if(argv.build === 'test'){
 		host = 'http://ftlabs-screens-test.herokuapp.com';	
 	}
 	
@@ -14,7 +14,7 @@ gulp.task('process', function() {
 		.pipe( process( { context : {
 				host : host
 			}
-		}) )
+		} ) )
 		.pipe( gulp.dest('./process/scripts/') )
 	;
 	
