@@ -2,15 +2,15 @@
   "name": "ftlabs-chrome-screens-app-kiosk",
   "description": "A kiosk-enabled Chrome app that ties into the FT Labs Screens system.",
   "scripts": {
-    "build-js": "mkdir -p build/scripts && mkdir -p ./process/scripts && gulp process && obt build --js=process/scripts/main.js --buildFolder=build/scripts",
-    "watch": "npm run build && sh -c 'nodemon -e js --watch src/scripts/ --exec \"npm run deploy\" & wait'",
+    "compile-js": "mkdir -p build/scripts && mkdir -p ./process/scripts && gulp process && obt build --js=process/scripts/main.js --buildFolder=build/scripts",
+    "watch": "npm run compile && sh -c 'nodemon -e js --watch src/scripts/ --exec \"npm run build\" & wait'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build-js",
-    "deploy": "npm run clean && cp -R ./src ./build && npm run build && zip -r ./build/package.zip ./build",
+    "compile": "npm run compile-js",
+    "build": "npm run clean && cp -R ./src ./build && npm run compile && zip -r ./build/package.zip ./build",
     "clean": "rm -rf ./build && rm -rf ./process",
-    "deploy-test": "npm run clean && cp -R ./src ./build && npm run build-test && zip -r ./build/package.zip ./build",
-    "build-test": "npm run build-js-test",
-    "build-js-test": "mkdir -p build/scripts && mkdir -p ./process/scripts && gulp process --deploy=test && obt build --js=process/scripts/main.js --buildFolder=build/scripts"
+    "build-test": "npm run clean && cp -R ./src ./build && npm run compile-test && zip -r ./build/package.zip ./build",
+    "compile-test": "npm run compile-js-test",
+    "compile-js-test": "mkdir -p build/scripts && mkdir -p ./process/scripts && gulp process --build=test && obt build --js=process/scripts/main.js --buildFolder=build/scripts"
   },
   "author": "FTLabs",
   "license": "MIT",
